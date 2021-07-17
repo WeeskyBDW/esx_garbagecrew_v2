@@ -15,20 +15,17 @@ Citizen.CreateThread(function()
 	end
 
 	PlayerData = ESX.GetPlayerData()
-		
-	if PlayerData.job.name == Config.JobName then
-		mainblip = AddBlipForCoord(Config.Zones[2].pos)
+	
+	mainblip = AddBlipForCoord(Config.Zones[2].pos)
+	SetBlipSprite (mainblip, 318)
+	SetBlipDisplay(mainblip, 4)
+	SetBlipScale  (mainblip, 1.2)
+	SetBlipColour (mainblip, 5)
+	SetBlipAsShortRange(mainblip, true)
 
-		SetBlipSprite (mainblip, 318)
-		SetBlipDisplay(mainblip, 4)
-		SetBlipScale  (mainblip, 1.2)
-		SetBlipColour (mainblip, 5)
-		SetBlipAsShortRange(mainblip, true)
-
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(_U('blip_job'))
-		EndTextCommandSetBlipName(mainblip)
-	end
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString(_U('blip_job'))
+	EndTextCommandSetBlipName(mainblip)
 		
 	esxloaded = true
 end)
@@ -37,13 +34,9 @@ RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	PlayerData = xPlayer
 	TriggerServerEvent('esx_garbagecrew:setconfig')
-end)
-
-RegisterNetEvent('esx:setJob')
-AddEventHandler('esx:setJob', function(job)
-	PlayerData.job = job
 	TriggerEvent('esx_garbagecrew:checkjob')
 end)
+
 
 RegisterNetEvent('esx_garbagecrew:movetruckcount')
 AddEventHandler('esx_garbagecrew:movetruckcount', function(count)
@@ -167,24 +160,16 @@ Citizen.CreateThread( function()
 end)
 
 AddEventHandler('esx_garbagecrew:checkjob', function()
-	if PlayerData.job.name ~= Config.JobName then
-		if mainblip ~= nil then
-			RemoveBlip(mainblip)
-			mainblip = nil
-		end
-	elseif mainblip == nil then
-		mainblip = AddBlipForCoord(Config.Zones[2].pos)
+	mainblip = AddBlipForCoord(Config.Zones[2].pos)
+	SetBlipSprite (mainblip, 318)
+	SetBlipDisplay(mainblip, 4)
+	SetBlipScale  (mainblip, 1.2)
+	SetBlipColour (mainblip, 5)
+	SetBlipAsShortRange(mainblip, true)
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString(_U('blip_job'))
+	EndTextCommandSetBlipName(mainblip)
 
-		SetBlipSprite (mainblip, 318)
-		SetBlipDisplay(mainblip, 4)
-		SetBlipScale  (mainblip, 1.2)
-		SetBlipColour (mainblip, 5)
-		SetBlipAsShortRange(mainblip, true)
-
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(_U('blip_job'))
-		EndTextCommandSetBlipName(mainblip)
-	end
 end)
 
 Citizen.CreateThread( function()
@@ -443,11 +428,7 @@ end
 
 function IsGarbageJob()
 	if ESX ~= nil then
-		local isjob = false
-		if PlayerData.job.name == Config.JobName then
-			isjob = true
-		end
-		return isjob
+		return true;
 	end
 end
 
