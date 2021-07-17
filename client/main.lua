@@ -448,11 +448,11 @@ function MenuCloakRoom()
 				end)
 			elseif data.current.value == 'job_wear' then
 				clockedin = true
-				ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+				ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 					if skin.sex == 0 then
-						TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_male)
+						TriggerEvent('skinchanger:loadClothes', skin, Config.Uniforms.job_wear.male)
 					else
-						TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_female)
+						TriggerEvent('skinchanger:loadClothes', skin, Config.Uniforms.job_wear.female)
 					end
 				end)
 			end
